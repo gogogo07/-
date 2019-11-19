@@ -20,7 +20,7 @@ def get_info_major(url, sql, pages, year):
         message = driver.find_element_by_class_name('search-table')
         pattern = re.compile(r'(.*)\n+')
         message1 = pattern.findall(message.text + '\n')
-        data = [tuple(message1[i].split()[:-1]) for i in range(1, len(message1))]
+        data = [tuple(message1[i].split()) for i in range(1, len(message1))]
         print(year, i, data[0][0])
         cur.executemany(sql, data)
         con.commit()
@@ -32,8 +32,13 @@ def get_info_major(url, sql, pages, year):
 
 
 if __name__ == '__main__':
-    url1 = r'https://gkcx.eol.cn/lineschool?province=&schoolyear=2018'
-    sql1 = 'insert into test values(%s, %s, %s, %s, %s, %s, %s, %s)'
-    get_info_major(url1, sql1, 7, 2018)
+    url1 = r'https://gkcx.eol.cn/linespecialty?schoolyear=2018'
+    sql1 = 'insert into major_info2018 values(%s, %s, %s, %s, %s, %s, %s, %s)'
+    url2 = r'https://gkcx.eol.cn/linespecialty?schoolyear=2017'
+    sql2 = 'insert into major_info2017 values(%s, %s, %s, %s, %s, %s, %s, %s)'
+    url3 = r'https://gkcx.eol.cn/linespecialty?schoolyear=2016'
+    sql3 = 'insert into major_info2016 values(%s, %s, %s, %s, %s, %s, %s, %s)'
     with ProcessPoolExecutor(3) as pool:
-        pass
+        pool.submit(get_info_major, url1, sql1, 25977, 2018)
+        pool.submit(get_info_major, url2, sql2, 26375, 2017)
+        pool.submit(get_info_major, url3, sql3, 22134, 2016)
