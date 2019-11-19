@@ -16,8 +16,8 @@ def get_info_major(url, sql, pages, year):
     i = 0
     con, cur = sql_server.connect_and_cursor
     while True:
-        class_name = 'search-table'
-        message = driver.find_element_by_class_name(class_name)
+        i += 1
+        message = driver.find_element_by_class_name('search-table')
         pattern = re.compile(r'(.*)\n+')
         message1 = pattern.findall(message.text + '\n')
         data = [tuple(message1[i].split()[:-1]) for i in range(1, len(message1))]
@@ -26,7 +26,6 @@ def get_info_major(url, sql, pages, year):
         con.commit()
         mes = driver.find_element_by_class_name("fypages")
         mes.find_elements_by_tag_name('li')[9].click()
-        i += 1
         if i == pages:
             print('爬取成功')
             break
