@@ -35,10 +35,10 @@ class SqlServer():
     def __del__(self):
         if self._is_close_auto:
             if self._cursor:
-                print('cur')
+                print('cur close')
                 self._cursor.close()
             if self._connect:
-                print('con')
+                print('con close')
                 self._connect.close()
 
 

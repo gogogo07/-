@@ -12,6 +12,7 @@ province = [11, 12, 13, 41, 37, 14, 61, 15, 21, 22, 23, 31, 32, 34, 36, 42,
 
 
 def get_province_line():
+    """爬取各省不同年份的分数线"""
     sql = 'insert into province_line_info values(%s, %s, %s, %s, %s)'
     url = 'https://api.eol.cn/gkcx/api/?access_token=&page=1&province_id={}' \
           '&signsafe=&size=20&uri=apidata/api/gk/score/proprovince&year={}'

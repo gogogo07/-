@@ -7,6 +7,14 @@ from sql_server.sql_server_class import SqlServer
 
 
 def get_info(url, sql, pages, year):
+    """
+    爬取各个大学的分数线
+    :param url:
+    :param sql:
+    :param pages:
+    :param year:
+    :return:None
+    """
     sql_server = SqlServer('course_design')
     driver = webdriver.Firefox()
     driver.get(url)  # 打开网页
