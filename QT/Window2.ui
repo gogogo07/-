@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>826</width>
-    <height>611</height>
+    <height>618</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -84,23 +84,11 @@
             </spacer>
            </item>
            <item>
-            <widget class="QTextBrowser" name="InQ_Text">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
+            <widget class="QTextEdit" name="InQ_Text">
              <property name="minimumSize">
               <size>
-               <width>395</width>
-               <height>73</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16777215</height>
+               <width>393</width>
+               <height>60</height>
               </size>
              </property>
             </widget>
@@ -162,23 +150,11 @@
             </spacer>
            </item>
            <item>
-            <widget class="QTextBrowser" name="InSql_Text">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
+            <widget class="QTextEdit" name="InSql_Text">
              <property name="minimumSize">
               <size>
-               <width>395</width>
+               <width>393</width>
                <height>80</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16777215</height>
               </size>
              </property>
             </widget>
