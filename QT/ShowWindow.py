@@ -7,7 +7,8 @@
 # WARNING! All changes made in this file will be lost!
 
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets,QtSql
+from PyQt5.QtGui import QStandardItemModel
 
 
 class Ui_MainWindow(object):
@@ -166,6 +167,7 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setObjectName("verticalLayout_3")
+        # 数据表格显示
         self.SearchRes_Tab = QtWidgets.QTableView(self.SearchRes_Group)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
