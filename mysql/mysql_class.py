@@ -46,3 +46,9 @@ class MysqlConnect:
 
 if __name__ == '__main__':
     mysql = MysqlConnect('course_design')
+    con, cur = mysql.connect_and_cursor
+    sql = 'select s_id "学校码", s_name "学校", ' \
+          'is_985 "985", is_211 "211", is_yiliu "双一流" from schools limit 0, 20'
+    cur.execute(sql)
+    print(cur)
+    print(cur.description)
