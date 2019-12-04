@@ -14,7 +14,7 @@ class MysqlConnect:
         self.connect_to_mysql()
 
     def connect_to_mysql(self):
-        with open(os.path.dirname(os.getcwd()) + '\\mysql\\config.json', 'r') as f:
+        with open(os.path.dirname(os.path.abspath(__file__)) + '\\config.json', 'r') as f:
             config = json.load(f)
         self._connect = pymysql.connect(database=self._database, **config)
         if self._connect:
@@ -45,11 +45,4 @@ class MysqlConnect:
 
 
 if __name__ == '__main__':
-    with open(os.path.dirname(os.getcwd()) + '\\mysql\\config.json', 'r') as f:
-        config = json.load(f)
-    d = ['厦门大学']
-    con = pymysql.connect(database='course_design', **config)
-    cur = con.cursor()
-    cur.execute(f"select s_id from schools where s_name = '{d[0]}'")
-    res = cur.fetchone()
-    print(res)
+    mysql = MysqlConnect('course_design')
