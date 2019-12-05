@@ -202,7 +202,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.Input_Group.setTitle(_translate("MainWindow", "Input the Request"))
         self.InQ_Lab.setText(_translate("MainWindow", "请输入要查询的自然语言："))
-        self.InSql_Lab.setText(_translate("MainWindow", "请输入要查询的SQL语句："))
+        self.InSql_Lab.setText(_translate("MainWindow", "请输入要查询的SQL语句：(每个非空连续单词之间必须用空格隔开！)"))
         self.Ok_But.setText(_translate("MainWindow", "查询"))
         self.Reset_But.setText(_translate("MainWindow", "重置"))
         self.Derivative_Group.setTitle(_translate("MainWindow", "Output the Derivative problems"))
