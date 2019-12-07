@@ -2,13 +2,12 @@
 import pymysql
 from PyQt5.Qt import *
 import sys
-#coding=utf-8
+# coding=utf-8
 import re
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox, QMainWindow, QApplication
-from QT import ShowWindow
 # 继承至界面文件的主窗口类
-#encoding=utf-8
+# encoding=utf-8
 from QT.ShowWindow import Ui_MainWindow
 import jieba
 # 用于连接数据库
@@ -20,6 +19,7 @@ config = {
     "user": "root",
     "password": "aliyun"
 }
+
 
 class MyMainWindow(QMainWindow, Ui_MainWindow):
 
@@ -150,20 +150,20 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
             else:
                 continue
         # 用来测试有没有成功关键词分类
-        print("--------------")
-        print(self.wkeys["school"])
-        print("--------------")
-        print(self.wkeys["level"])
-        print("--------------")
-        print(self.wkeys["subject"])
-        print("--------------")
-        print(self.wkeys["year"])
-        print("--------------")
-        print(self.wkeys["val"])
-        print("--------------")
-        print(self.wkeys["major"])
-        print("--------------")
-        print(self.wkeys["schoollevel"])
+        # print("--------------")
+        # print(self.wkeys["school"])
+        # print("--------------")
+        # print(self.wkeys["level"])
+        # print("--------------")
+        # print(self.wkeys["subject"])
+        # print("--------------")
+        # print(self.wkeys["year"])
+        # print("--------------")
+        # print(self.wkeys["val"])
+        # print("--------------")
+        # print(self.wkeys["major"])
+        # print("--------------")
+        # print(self.wkeys["schoollevel"])
 
     '''
     获取输入的自然语言和SQL语句
@@ -237,20 +237,20 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                 continue
 
         # 用来测试有没有成功关键词分类
-        print("--------------")
-        print(self.sqlkeys["school"])
-        print("--------------")
-        print(self.sqlkeys["level"])
-        print("--------------")
-        print(self.sqlkeys["subject"])
-        print("--------------")
-        print(self.sqlkeys["year"])
-        print("--------------")
-        print(self.sqlkeys["val"])
-        print("--------------")
-        print(self.sqlkeys["major"])
-        print("--------------")
-        print(self.sqlkeys["schoollevel"])
+        # print("--------------")
+        # print(self.sqlkeys["school"])
+        # print("--------------")
+        # print(self.sqlkeys["level"])
+        # print("--------------")
+        # print(self.sqlkeys["subject"])
+        # print("--------------")
+        # print(self.sqlkeys["year"])
+        # print("--------------")
+        # print(self.sqlkeys["val"])
+        # print("--------------")
+        # print(self.sqlkeys["major"])
+        # print("--------------")
+        # print(self.sqlkeys["schoollevel"])
 
     '''
     输入参数清空/重置
@@ -312,6 +312,62 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
                 self.model.setItem(i, j, finaldata)
         self.SearchRes_Tab.setModel(self.model)             # 结果插入表
 
+    def test1(self,natureLanguage, sqlLanguage):
+        # 按照空格将sqlLanguage中的单词分隔开
+        sqlkey = sqlLanguage.split(" ")
+
+        # 构造两个列表,顺序相同,用于记录那个
+        a = []
+        b = []
+        c = []
+        d = []
+        for index in range(len(sqlkey)):
+            if re.compile(r"'(.*?)'").findall(sqlkey[index]):
+                a.append(sqlkey[index - 2])
+                b.append(re.compile(r"'(.*?)'").findall(sqlkey[index])[0])
+            else:
+                if sqlkey[index - 1] == '=':
+                    c.append(sqlkey[index - 2])
+                    d.append(sqlkey[index])
+        # 输出特定列,按照a中的顺序进行添加
+        sql = "select distinct "
+        for index in range(len(a) - 1):
+            sql = sql + a[index] + " , "
+        if len(a) > 0:
+            sql = sql + a[len(a) - 1] + " from "
+        if len(a) == 0:
+            sql = sql + "* "
+
+        sql = sql + re.compile(r"from (.*?) where").findall(sqlLanguage)[0]
+        if (len(c) > 0):
+            sql = sql + " where "
+        print(sql)
+        for index in range(len(c) - 1):
+            sql = sql + c[index] + " = " + d[index] + " and "
+        print(sql)
+        if (len(c) > 0):
+            sql = sql + c[len(c) - 1] + " = " + d[len(c) - 1]
+        print(sql)
+        db = pymysql.connect(**config)
+        cur = db.cursor()
+        cur.execute(sql)
+        k=0
+        self.model1 = QStandardItemModel()
+
+        self.model2 = QStandardItemModel()
+        for i in cur.fetchall():  # i为一个列表
+            a1 = natureLanguage
+            b1 = sqlLanguage
+            for j in range(len(i)):
+                a1 = a1.replace(b[j], i[j])
+                b1 = b1.replace(b[j], i[j])
+            self.model1.setItem(k,0,QStandardItem(str(a1)))
+            self.model2.setItem(k, 0, QStandardItem(str(b1)))
+            # print(a1)
+            # print(b1)
+            k=k+1
+        self.SonQ_Tab.setModel(self.model1)
+        self.SonSQL_Tab.setModel(self.model2)
     '''
     查询按钮响应事件
     Attributes:
@@ -333,6 +389,9 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
         self.solvesqlkey()  # 测试用
         self.search_sql()  # 执行查询并显示到表格
 
+        self.test1(self.wquery,self.sqlquery)
+
+
     '''
     重置按钮响应事件，清空输入参数和输入显示框
     '''
@@ -343,9 +402,9 @@ class MyMainWindow(QMainWindow, Ui_MainWindow):
         # 重置输入参数
         self.init_input()
 
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     myWin = MyMainWindow()
     myWin.show()
-
     sys.exit(app.exec_())
