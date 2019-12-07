@@ -9,6 +9,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets,QtSql
 from PyQt5.QtGui import QStandardItemModel
+from PyQt5.QtWidgets import QHeaderView
 
 
 class Ui_MainWindow(object):
@@ -129,6 +130,9 @@ class Ui_MainWindow(object):
         self.SonQ_Tab.setMinimumSize(QtCore.QSize(0, 220))
         self.SonQ_Tab.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.SonQ_Tab.setObjectName("SonQ_Tab")
+        # 下面代码让表格100填满窗口
+        self.SonQ_Tab.horizontalHeader().setStretchLastSection(True)
+        self.SonQ_Tab.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.verticalLayout_5.addWidget(self.SonQ_Tab)
         self.verticalLayout_6.addLayout(self.verticalLayout_5)
         self.verticalLayout_4 = QtWidgets.QVBoxLayout()
@@ -157,6 +161,9 @@ class Ui_MainWindow(object):
         self.SonSQL_Tab.setMinimumSize(QtCore.QSize(0, 220))
         self.SonSQL_Tab.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.SonSQL_Tab.setObjectName("SonSQL_Tab")
+        # 下面代码让表格100填满窗口
+        self.SonSQL_Tab.horizontalHeader().setStretchLastSection(True)
+        self.SonSQL_Tab.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.verticalLayout_4.addWidget(self.SonSQL_Tab)
         self.verticalLayout_6.addLayout(self.verticalLayout_4)
         self.gridLayout_4.addLayout(self.verticalLayout_6, 0, 0, 1, 1)
